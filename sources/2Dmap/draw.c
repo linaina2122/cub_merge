@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 01:15:00 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/21 00:48:11 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/23 11:27:08 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,45 +31,68 @@ void	ft_put_pixel(t_my_struct *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-// void	draw_square(t_my_struct *m, int x, int y)
-// {
-// 	int	i;
-// 	int	j;
+void	draw_square(t_my_struct *m, int x, int y)
+{
+	int	i;
+	int	j;
 
-// 	i = 0;
-// 	while (i < (SCALE * MINI_MAP_SCALE))
-// 	{
-// 		j = 0;
-// 		while (j < (SCALE * MINI_MAP_SCALE))
-// 		{
-// 			ft_put_pixel(m, x + j, y, 0x000000);
-// 			ft_put_pixel(m, x + j, y + i, 0x000000);
-// 			j++;
-// 		}
-// 		ft_put_pixel(m, x, y + i, 0x000000);
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (i < SCALE)
+	{
+		j = 0;
+		while (j < SCALE)
+		{
+			ft_put_pixel(m, x + j, y, 0xFFFFFF);
+			ft_put_pixel(m, x + j, y + i, 56545);
+			j++;
+		}
+		ft_put_pixel(m, x, y + i, 5654565);
+		i++;
+	}
+}
 
-// void	draw_back(t_my_struct *m, int x, int y)
-// {
-// 	int	i;
-// 	int	j;
+void	draw_back(t_my_struct *m, int x, int y)
+{
+	int	i;
+	int	j;
 
-// 	i = 0;
-// 	while (i < (SCALE * MINI_MAP_SCALE))
-// 	{
-// 		j = 0;
-// 		while (j < (SCALE * MINI_MAP_SCALE))
-// 		{
-// 			ft_put_pixel(m, x + j, y, 0x000000);
-// 			ft_put_pixel(m, x + j, y + i, 0x000000);
-// 			j++;
-// 		}
-// 		ft_put_pixel(m, x, y + i, 0x000000);
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (i < SCALE)
+	{
+		j = 0;
+		while (j < SCALE)
+		{
+			ft_put_pixel(m, x + j, y, 564889);
+			ft_put_pixel(m, x + j, y + i, 7898);
+			j++;
+		}
+		ft_put_pixel(m, x, y + i, 0x000000);
+		i++;
+	}
+}
+
+void iterater(t_my_struct *m)
+{
+	int count;
+	int count2;
+
+	count = 0;
+	while(count < m->map_height * SCALE)
+	{
+		count2 = 0;
+		while(count2 < m->map_width * SCALE)
+		{
+			
+			if(m->map[count / SCALE][count2 / SCALE] == '1')
+				draw_square(m, count2, count);
+			else
+				draw_back(m, count2, count);
+			count2 += SCALE;
+		}
+		count += SCALE;
+	}
+	player(m, m->player_x, m->player_y);
+}
 
 void	draw(t_my_struct *m)
 {

@@ -6,7 +6,7 @@
 #    By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:58:29 by bkamal            #+#    #+#              #
-#    Updated: 2023/05/21 15:47:31 by hcharef          ###   ########.fr        #
+#    Updated: 2023/05/23 11:33:35 by hcharef          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,16 @@ INCDIR   = includes
 
 SRCP	 = error_checks.c\
 			get_next_line.c
-SRC2	 = draw.c\
-			file.c\
-			myfun.c\
+			
+ SRC2	 = draw.c\
+			mlx_func.c\
+			 myfun.c\
+ 			 file.c\
 			mouvements.c\
 			utils.c\
 			castray.c\
 			3d.c\
-			mlx_func.c
+			
 OBJP     = $(addprefix $(OBJDIR)/,$(notdir $(SRCP:.c=.o)))
 OBJ2D    = $(addprefix $(OBJDIR)/,$(notdir $(SRC2:.c=.o)))
 INC		 = -I$(INCDIR)

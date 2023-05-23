@@ -6,11 +6,11 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:05:37 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/19 23:36:28 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/22 10:30:44 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../includes/cub3d.h"
 
 double	normalize_angle(double angl)
 {
@@ -38,7 +38,7 @@ int	check_left_right(double angle)
 
 int	find_wall(double x, double y, t_my_struct *m)
 {
-	if (x <= 0 || x >= WIDTH || y <= 0 || y >= HEIGHT)
+	if (x < 0 || (int)x >= m->map_width || y < 0 || (int)y >= m->map_height)
 		return (1);
 	if (m->map[(int)y][(int)x] == '1')
 		return (1);
@@ -49,7 +49,7 @@ double	distance_of_two_points(t_my_struct *m, double d1, double d2)
 {
 	double	c;
 
-	c = (pow((d1 - m->player_x * SCALE), 2) + pow((d2 - m->player_y * SCALE),
+	c = (pow((d1 - (m->player_x * SCALE)), 2) + pow((d2 - (m->player_y * SCALE)),
 				2));
 	return (sqrt(c));
 }

@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 00:28:37 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/21 15:50:38 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/23 13:41:43 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,12 +190,12 @@ int	empty_line(char *line, size_t *dimh, size_t *dimw)
 	return (1);
 }
 
-void	fill_rest(char *line, int max, int *dupe, char *uncheck) //*to fill up rest of line
+void	fill_rest(char *line, size_t max, int *dupe, char *uncheck) //*to fill up rest of line
 {
-	int	i;
-	(void)uncheck;
+	size_t	i;
+
 	i = 0;	
-	while (line[++i] && line[i] != '\n')
+	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == 'E' || line[i] == 'W' || line[i] == 'S' || line[i] == 'N')
 		{
@@ -204,14 +204,15 @@ void	fill_rest(char *line, int max, int *dupe, char *uncheck) //*to fill up rest
 			else
 				*dupe |= 1 << 1;
 		}
-		if (line[i] != ' ' && line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'W' && line[i] != 'S' && line[i] != 'E')
+		if ((line[i] != ' ' && line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'W' && line[i] != 'S' && line[i] != 'E')
+		|| (line[ft_strlen(uncheck) - 2] != '1' && line[ft_strlen(uncheck) - 2] != ' ') || (line[0] != '1' && line[0] != ' '))
 			*dupe |= 1 << 2;
+		i++;
 	}
+	i = 0;
 	while(i < max)
 	{
-		if (line[i] == ' ' || line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == 'W' || line[i] == 'S' || line[i] == 'E')
-			;
-		else
+		if (i > ft_strlen(uncheck) - 2)
 			line[i] = ' ';
 		i++;
 	}
@@ -219,12 +220,11 @@ void	fill_rest(char *line, int max, int *dupe, char *uncheck) //*to fill up rest
 
 int	within_walls(char **map, size_t i, size_t j)
 {
-
 	if (map[i][j] == '0' || map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] =='S' || map[i][j] == 'N')
 	{
-		if (map[i-1][j-1] == ' ' || map[i-1][j] == ' ' || map[i-1][j+1] == ' '
-		 || map[i][j-1] == ' ' || map[i][j+1] == ' '
-		 || map[i+1][j-1] == ' ' || map[i+1][j] == ' ' || map[i+1][j+1] == ' ')
+		if (map[i - 1][j - 1] == ' ' || map[i - 1][j] == ' ' || map[i - 1][j + 1] == ' '
+		 || map[i][j -1 ] == ' ' || map[i][j + 1] == ' '
+		 || map[i + 1][j - 1] == ' ' || map[i + 1][j] == ' ' || map[i + 1][j + 1] == ' ')
 			return (0);
 	}
 	return (1);
@@ -257,14 +257,13 @@ int	check_map(char **map, t_map_tools *ts, size_t height)
 			ts->j++;
 		}
 	}
-
 	return (check_ends(map[0]) || check_ends(map[height - 1]));
 }
 
 //* 63 is the decimal of 0011 1111 in binary,
 //* 	each bit will correspond to a flag
 //* left->right NO->SO->WE->EA->F->C
-//? Might add more later to accomodate F & C textures if I fancy it
+//? Might add more later to accomodate F & C textures.
 int	check_scene(char *file, t_map *map)
 {
 	map->tools->dupe = 0;
@@ -335,23 +334,27 @@ void	error_checks(int ac, char **av, t_map *map)
 	}
 }
 
-// void	game_main(t_map *map)
-// {
-// 	t_my_struct *s;
 
-// 	s = my_fun();
-// 	s->r = malloc(sizeof(t_ray));
-// 	s->rot_angle = M_PI_2 / 3;
-// 	s->move[0] = 0;
-// 	s->move[1] = 0;
-// 	s->move[2] = 0;
-// 	player_init(s);
-// 	window(s);
-// }
+void game_main(t_map *map)
+{
+	t_my_struct *s;
+	s = malloc(sizeof(t_my_struct));
+	s->map = map->layout;	
+	s->r = malloc(sizeof(t_ray));
+	s->rot_angle = M_PI_2 / 6;
+	s->move[0] = 0;
+	s->move[1] = 0;
+	s->move[2] = 0;
+	player_init(s);
+	
+	window(s);
+
+}
 
 int main(int ac, char **av)
 {
 	t_map	*map;
+
 	
 	// init_parse(&map);
 	map = (t_map *)malloc(sizeof(t_map));
@@ -364,7 +367,10 @@ int main(int ac, char **av)
 	map->no = NULL;
 	map->layout = NULL;
 	error_checks(ac, av, map);
-	// game_main(map);
-	free_map(map);
+	game_main(map);
+
+
+	// free_map(map);
+	// system("leaks cub3D");
 	return (0);
 }

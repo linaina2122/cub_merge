@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 01:34:31 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/21 15:37:17 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/21 22:17:19 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 // int main()
 // {
 	// t_my_struct *s;
-	// s = my_fun();
 	// s->r = malloc(sizeof(t_ray));
 	// s->rot_angle = M_PI_2 / 3;
 	// s->move[0] = 0;

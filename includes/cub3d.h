@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:20:43 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/21 15:29:22 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/23 13:34:23 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@
 # define ERR_WRG_SCN "Incorrect scene configuration\n"
 
 //*GNL
-# define BUFFER_SIZE 42
+# define BUFFER_SIZE 1
 //*********************
 
 # define SCALE 64
-# define WIDTH 896
-# define HEIGHT 512
+# define WIDTH 1920
+# define HEIGHT 1080
 # define SPEED  2 * (M_PI_2 / 180)
 #define WALL_STRIPE_WIDTH 1
 //RAY
@@ -132,6 +132,8 @@ typedef struct s_my_struct{
 	int		keycode;
 	t_data	imge;
 	t_text	t;
+	int		map_width;
+	int		map_height;
 	char 	**map;
 	void 	*mlx_ptr;
 	void 	*win_ptr;
@@ -167,7 +169,6 @@ void 	window(t_my_struct *m);
 void	ft_put_pixel(t_my_struct *data, int x, int y, int color);
 void	data_struct_init(t_my_struct *data);
 void line_draw(t_my_struct *m);
-t_my_struct *my_fun(); // to remove
 
 int 	move_up(t_my_struct *m);
 int 	move_down(t_my_struct *m);
@@ -193,6 +194,15 @@ double	distance_of_two_points(t_my_struct *m, double d1, double d2);
 int	exiting(int keycode, t_my_struct *m);
 int	update(t_my_struct *m);
 void text_init(t_my_struct *m);
+
+
+
+
+
+
+
+
+void iterater(t_my_struct *m);//to delete
 
 //*******************************************************
 

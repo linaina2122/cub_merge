@@ -1,0 +1,10 @@
+the parsing thinks the map is incorrect whe it have tabs in the begining even tho it is closed.
+
+this is another error "F 220,100,0," "C ,225,30,01" it should give an error
+
+this here sigfault it "C -225,30,01"
+
+it sigfault because you dont protect textures
+
+if the texure name "NO" is less or more by even one char it sigfaults
+

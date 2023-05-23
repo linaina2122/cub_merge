@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 21:58:18 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/19 23:53:33 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/23 09:40:52 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	player_init(t_my_struct *m)
 		line = m->map[i];
 		while (line[j])
 		{
-			if (line[j] == 'N')
+			if (line[j] == 'N' || line[j] == 'S' || line[j] == 'E' || line[j] == 'W')
 			{
 				m->player_x = j + 0.5;
 				m->player_y = i + 0.5;
