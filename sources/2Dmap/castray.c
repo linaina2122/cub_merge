@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:35:51 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/22 14:33:04 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/23 17:19:52 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	find_h_wall(t_my_struct *m)
 {
-	while (m->r->next_h_interx >= 0 && m->r->next_h_interx <= WIDTH && \
-	m->r->next_h_intery >= 0 && m->r->next_h_intery <= HEIGHT)
+	while (m->r->next_h_interx >= 0 && m->r->next_h_interx <= m->map_width * SCALE && \
+	m->r->next_h_intery >= 0 && m->r->next_h_intery <= m->map_height * SCALE)
 	{
 		if (find_wall(m->r->next_h_interx / SCALE, \
 		m->r->next_h_intery / SCALE, m))
@@ -60,8 +60,8 @@ void	h_intercept(t_my_struct *m, double angle)
 
 void	find_v_wall(t_my_struct *m)
 {
-	while (m->r->next_v_interx >= 0 && m->r->next_v_interx <= WIDTH && \
-	m->r->next_v_intery >= 0 && m->r->next_v_intery <= HEIGHT)
+	while (m->r->next_v_interx >= 0 && m->r->next_v_interx <= m->map_width * SCALE && \
+	m->r->next_v_intery >= 0 && m->r->next_v_intery <= m->map_height * SCALE)
 	{
 		if (find_wall(m->r->next_v_interx / SCALE, m->r->next_v_intery / SCALE,
 				m))

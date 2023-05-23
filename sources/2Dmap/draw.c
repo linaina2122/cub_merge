@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 01:15:00 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/23 11:27:08 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/23 17:10:42 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void iterater(t_my_struct *m)
 		count2 = 0;
 		while(count2 < m->map_width * SCALE)
 		{
-			
 			if(m->map[count / SCALE][count2 / SCALE] == '1')
 				draw_square(m, count2, count);
 			else

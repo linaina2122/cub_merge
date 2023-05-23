@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:20:43 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/23 13:34:23 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/23 17:04:09 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,10 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define SPEED  2 * (M_PI_2 / 180)
-#define WALL_STRIPE_WIDTH 1
 //RAY
 
 #define FOV_ANGLE 60 * (M_PI_2 / 180)
-#define NUM_RAYS WIDTH / WALL_STRIPE_WIDTH 
-#define MINI_MAP_SCALE 1
-
+#define NUM_RAYS WIDTH 
 //*******************************************************
 //*PARSING PART
 typedef struct s_map_tools
