@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:35:51 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/23 17:19:52 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/24 11:10:16 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void	get_distance(t_my_struct *m)
 		hory = WIDTH * 2;
 	if (vertic > hory)
 		m->r->final_distance = hory;
-	else
+	else {
 		m->r->final_distance = vertic;
+		m->r->is_it_verticale = 1;
+	}
 }

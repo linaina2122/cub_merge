@@ -6,7 +6,7 @@
 #    By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:58:29 by bkamal            #+#    #+#              #
-#    Updated: 2023/05/23 11:33:35 by hcharef          ###   ########.fr        #
+#    Updated: 2023/05/23 23:17:04 by hcharef          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,13 @@ PRSDIR   = sources/parsing
 2DMDIR	 = sources/2Dmap
 OBJDIR   = objects
 INCDIR   = includes
-
 SRCP	 = error_checks.c\
+			checks_utils.c\
+			map_loops_utils.c\
+			darr_utils.c\
+			map_loops.c\
+			features_checks.c\
+			features_utils.c\
 			get_next_line.c
 			
  SRC2	 = draw.c\

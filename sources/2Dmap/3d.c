@@ -6,11 +6,29 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:50:07 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/23 22:50:51 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/24 19:36:46 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void text_initttt(t_my_struct *m)
+{
+	if(m->r->is_it_verticale)
+	{
+		if(check_left_right(m->r->rayangle))
+			m->t.addr = mlx_get_data_addr(m->t.w_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
+		else
+			m->t.addr = mlx_get_data_addr(m->t.o_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
+	}
+	else
+	{
+		if(check_up_down(m->r->rayangle))
+			m->t.addr = mlx_get_data_addr(m->t.n_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
+		else
+			m->t.addr = mlx_get_data_addr(m->t.s_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
+	}
+}
 
 void	rander(t_my_struct *m)
 {
@@ -19,13 +37,13 @@ void	rander(t_my_struct *m)
 
 	count = 0;
 	ray_angle = m->r->rayangle - (FOV_ANGLE / 2);
-	ray_angle = normalize_angle(ray_angle);
-
-	text_init(m);
+	ray_angle = normalize_angle(ray_angle);	
 	while (count < NUM_RAYS)
 	{
+		text_initttt(m);
 		h_intercept(m, ray_angle);
 		v_intercept(m, ray_angle);
+		m->r->is_it_verticale = 0;
 		get_distance(m);
 		renderwalls(m, ray_angle);
 		walls(m, count);
@@ -34,75 +52,36 @@ void	rander(t_my_struct *m)
 		count++;
 	}
 }
-void text_init(t_my_struct *m)
-{
-	char *path;
-	int i;
-	int j;
-	m->t.bpp = 0;
-	m->t.line_length = 0;
-	m->t.endian = 0;
-	path = "textures/omi.xpm";
-	m->t.img = mlx_xpm_file_to_image(m->mlx_ptr, path, &i, &j);
-	m->t.addr = mlx_get_data_addr(m->t.img, &m->t.bpp, &m->t.line_length, &m->t.endian);
-}
 
 unsigned int	ft_get_pixel(t_text m, int x, int y)
 {
 	int		offset;
-	char	*dst;
 
-	(void)dst;
 	if (x < 0 || x >= 64 || y < 0 || y >= 64)
 		return 0;
 	offset = (y * m.line_length) + (x * m.bpp/8);
 	unsigned int a = *((unsigned int *)(m.addr + offset));
-	//printf("*****%d, %d, %d\n", m.line_length, m.bpp, offset);
 	return(a);
 }
 
+
+
 void	walls(t_my_struct *m, int count)
 {
-	int	top_of_wall;
-	int end_of_wall;
+	float	top_of_wall;
+	float end_of_wall;
 	int x;
 	int y = 0;
-	float temp;
-	int window_x;
-	int	save;
-
-	(void)count;
 	top_of_wall = (HEIGHT / 2) - (m->r->wallstrip / 2);
 	end_of_wall = (HEIGHT / 2) + (m->r->wallstrip / 2);
-	float height_wall = end_of_wall - top_of_wall;
-	save = top_of_wall;
-	if(top_of_wall < 0)
-		top_of_wall = 0;
-	if(height_wall > HEIGHT)
-		height_wall = HEIGHT;
-
-	/*if(m->r->hflag)
-		x = ((int)m->r->wallhitx % SCALE);
-	else if(m->r->vflag)
-		x = ((int)m->r->wallhity % SCALE);*/
-	if(m->r->hflag)
-	{
-		x = m->r->wallhitx * SCALE;
-		window_x = m->r->wallhitx * WIDTH;
-	}
-	else if(m->r->vflag)
-	{
-		x = m->r->wallhity * SCALE;
-		window_x = m->r->wallhity * WIDTH;
-	}
+	if(m->r->is_it_verticale == 1)
+		x = (int)m->r->vwally % SCALE;
+	else 
+		x = (int)m->r->howallx % SCALE;
 	while (top_of_wall < end_of_wall)
 	{
-		temp = top_of_wall - save;
-		//temp = (f)(top_of_wall - save) / height_wall;
-		y = (temp / height_wall) * SCALE;
-		//printf("%f\n", y);
-		int color = ft_get_pixel(m->t, x + count, y);
-		ft_put_pixel(m, window_x + count, top_of_wall, color);
+		y = (top_of_wall + (m->r->wallstrip / 2) - (HEIGHT / 2)) *  (SCALE / m->r->wallstrip);
+		ft_put_pixel(m, count, top_of_wall, ft_get_pixel(m->t, x, y));
 		top_of_wall++;
 	}
 }
@@ -115,6 +94,5 @@ void	renderwalls(t_my_struct *m, double ray_angle)
 	correctwalldist = (float)(m->r->final_distance) * cos(ray_angle\
 			- m->rot_angle);
 	disprojectionplane = (WIDTH / 2) / tan(FOV_ANGLE / 2);
-	m->r->wallstrip = (SCALE / correctwalldist) * disprojectionplane;
-	m->r->wallstrip *= 0.3;
+	m->r->wallstrip = 0.3 * ((SCALE / correctwalldist) * disprojectionplane);
 }

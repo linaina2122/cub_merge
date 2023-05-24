@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:20:43 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/23 17:04:09 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/24 19:29:37 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ERR_OPN_FIL "Cannot open given file\n"
 # define ERR_ISA_DIR "Argument is a directory\n"
 # define ERR_WRG_SCN "Incorrect scene configuration\n"
+# define ç "Failed converting the xpm file to image\n"
 
 //*GNL
 # define BUFFER_SIZE 1
@@ -60,24 +61,51 @@ typedef struct s_map_tools
 	size_t	j;
 }	t_map_tools;
 
-
 typedef struct s_map
 {
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	int			*f;
-	int			*c;
-	char		**layout;
-	size_t		dim[2];
-	t_map_tools	*tools;
+	char					*no;
+	char					*so;
+	char					*we;
+	char					*ea;
+	char					**layout;
+	double					s_dir;
+	unsigned int			*f;
+	unsigned int			*c;
+	size_t					dim[2];
+	size_t					pos[2];
+	t_map_tools				*tools;
 }	t_map;
 
 //*ERROR CHECKING
-//* int
+//* main
 void	error_checks(int ac, char **av, t_map *map);
 
+//*features_checks
+void	check_each(char *line, int *flags, t_map *map);
+
+//*map_loops
+int		check_scene(char *file, t_map *map);
+
+//*map_loop_utils
+void	fill_rest(char *line, size_t max, int *dupe, char *uncheck);
+int		within_walls(char **map, size_t i, size_t j);
+int		check_ends(char *line);
+
+//*features_utils
+double	player_orientation(char player_start);
+
+//*check_utils
+int		check_extension(char *feature, char *ext);
+int		check_file(char *file);
+int		empty_line(char *line, size_t *dimh, size_t *dimw);
+int		check_nums(char **feature);
+char	**check_end_spaces(char *line, int *flags);
+
+//*darr_utils
+void	free_darr(char **darr);
+int		len_darr(char **darr);
+
+//*GNL
 char	*get_next_line(int fd);
 
 //*******************************************************
@@ -94,7 +122,12 @@ typedef struct	s_data {
 }	t_data;
 
 typedef struct s_text{
+	void	*n_img;
 	void	*img;
+
+	void	*w_img;
+	void	*o_img;
+	void	*s_img;
 	char	*addr;
 	int		bpp;
 	int		line_length;
@@ -123,16 +156,19 @@ typedef struct s_ray {
 	int hflag;
 	int vflag;
 	double final_distance;
+	short		is_it_verticale;
 }t_ray;
 
 typedef struct s_my_struct{
 	int		keycode;
-	t_data	imge;
-	t_text	t;
 	int		map_width;
 	int		map_height;
 	char 	**map;
 	void 	*mlx_ptr;
+	int up;
+	int down;
+	int right;
+	int left;
 	void 	*win_ptr;
 	double 	player_x;
 	double 	player_y;
@@ -141,6 +177,8 @@ typedef struct s_my_struct{
 	double rot_angle;
 	double var;
 	int move[3];
+	t_data	imge;
+	t_text	t;
 	t_ray *r;
 }t_my_struct;
 
@@ -162,10 +200,10 @@ void 	player(t_my_struct *m, double x, double y);
 int 	mouvements_press(int keycode, t_my_struct *m);
 int 	mouvements_release(int keycode, t_my_struct *m);
 void 	draw_back(t_my_struct *m , int x, int y);
-void 	window(t_my_struct *m);
+void 	window(t_my_struct *m, t_map *map);
 void	ft_put_pixel(t_my_struct *data, int x, int y, int color);
 void	data_struct_init(t_my_struct *data);
-void line_draw(t_my_struct *m);
+void 	line_draw(t_my_struct *m);
 
 int 	move_up(t_my_struct *m);
 int 	move_down(t_my_struct *m);
@@ -190,9 +228,9 @@ int		check_up_down(double angle);
 double	distance_of_two_points(t_my_struct *m, double d1, double d2);
 int	exiting(int keycode, t_my_struct *m);
 int	update(t_my_struct *m);
-void text_init(t_my_struct *m);
-
-
+void text_init(t_my_struct *m, t_map *t);
+//  void textures_init(t_my_struct *m);
+ void text_initttt(t_my_struct *m);
 
 
 

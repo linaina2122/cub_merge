@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:41:24 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/23 11:20:06 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/24 14:55:07 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,38 +32,6 @@ void player(t_my_struct *m, double x, double y)
 		i++;
 	}
 }
-
-// int mouvements(int keycode, t_my_struct *m)
-// {
-// 	m->rot_angle = normalize_angle(m->rot_angle);
-// 	if(keycode == 13)
-// 	{
-// 		if(move_up(m))
-// 			return(1);
-// 	}
-// 	if(keycode == 1)
-// 	{
-// 		if(move_down(m))
-// 			return(1);
-// 	}
-// 	if(keycode == 0)
-// 	{
-// 		if(right_move(m))
-// 			return(1);
-// 	}
-// 	if(keycode == 2)
-// 	{
-// 		if(left_move(m))
-// 			return(1);
-// 	}
-// 	if (keycode == 53)
-// 		exit(1);
-// 	if(keycode == 124)
-// 		m->rot_angle += 8 * SPEED;
-// 	if(keycode == 123)
-// 		m->rot_angle -= 8 * SPEED;
-// 	return(keycode);
-// }
 
 int mouvements_press(int keycode, t_my_struct *m)
 {

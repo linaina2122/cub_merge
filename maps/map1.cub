@@ -1,7 +1,7 @@
-NO ./textures/vertical-shot-branches-green-tree-perfect-background.xpm
-SO ./textures/vertical-shot-branches-green-tree-perfect-background.xpm
-WE ./textures/vertical-shot-branches-green-tree-perfect-background.xpm
-EA ./textures/vertical-shot-branches-green-tree-perfect-background.xpm
+NO textures/omi.xpm
+SO textures/test.xpm
+WE textures/omi.xpm
+EA textures/test.xpm
 
 C 225,30,01
 F 220,100,0
@@ -9,9 +9,9 @@ F 220,100,0
 11111111111111111111111
 10000000000000000000001
 10000000000000000000001
+10000000000E00000000001
 10000000000000000000001
 10000000000000000000001
 10000000000000000000001
 10000000000000000000001
-10000000000N00000000001
 11111111111111111111111
