@@ -6,18 +6,18 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 02:04:37 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/23 23:13:35 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/24 23:45:50 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	space_fill(char *line, size_t max, char *uncheck)
+void	space_fill(char *line, int max, char *uncheck)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < max)
+	while (i < (size_t)max)
 	{
 		if (i > ft_strlen(uncheck) - 1 || uncheck[i] == '\n')
 			line[i] = ' ';
@@ -52,7 +52,7 @@ void	fill_cond(char *line, int i, int *dupe, char *uncheck)
 	}
 }
 
-void	fill_rest(char *line, size_t max, int *dupe, char *uncheck)
+void	fill_rest(char *line, int max, int *dupe, char *uncheck)
 {
 	size_t	i;
 
@@ -65,7 +65,7 @@ void	fill_rest(char *line, size_t max, int *dupe, char *uncheck)
 	space_fill(line, max, uncheck);
 }
 
-int	within_walls(char **map, size_t i, size_t j)
+int	within_walls(char **map, int i, int j)
 {
 	if (map[i][j] == '0' || map[i][j] == 'E' || map[i][j] == 'W'
 		|| map[i][j] =='S' || map[i][j] == 'N')

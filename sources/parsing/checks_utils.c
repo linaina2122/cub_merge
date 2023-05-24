@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkamal <bkamal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 02:08:00 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/23 14:01:52 by bkamal           ###   ########.fr       */
+/*   Updated: 2023/05/24 23:44:54 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**check_end_spaces(char *line, int *flags)
 	return (split);
 }
 
-int	empty_line(char *line, size_t *dimh, size_t *dimw)
+int	empty_line(char *line, int *dimh, int *dimw)
 {
 	int	i;
 
@@ -82,7 +82,7 @@ int	empty_line(char *line, size_t *dimh, size_t *dimw)
 	else if ((!ft_isempty(line[i]) && line[i]))
 	{
 		*dimh += 1;
-		if (*dimw < ft_strlen(line))
+		if ((size_t)*dimw < ft_strlen(line))
 			*dimw = ft_strlen(line);
 		return (0);
 	}

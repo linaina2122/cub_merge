@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_loops.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkamal <bkamal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 01:55:55 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/23 06:29:09 by bkamal           ###   ########.fr       */
+/*   Updated: 2023/05/24 23:46:47 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_map(char **map, t_map_tools *ts, size_t height)
+int	check_map(char **map, t_map_tools *ts, int height)
 {
 	ts->i = 0;
 	while (++ts->i < height - 1)

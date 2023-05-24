@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:35:51 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/24 11:10:16 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/24 20:29:07 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	get_distance(t_my_struct *m)
 		hory = distance_of_two_points(m, m->r->howallx, m->r->howally);
 	else
 		hory = WIDTH * 2;
-	if (vertic > hory)
+	if (vertic >= hory)
 		m->r->final_distance = hory;
 	else {
 		m->r->final_distance = vertic;

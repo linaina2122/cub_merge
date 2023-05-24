@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkamal <bkamal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 18:58:03 by bkamal            #+#    #+#             */
-/*   Updated: 2023/04/14 03:14:22 by bkamal           ###   ########.fr       */
+/*   Updated: 2023/05/24 22:54:33 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_color_atoi(const char *str)
 	nbr = 0;
 	while (str[++i] && ft_isdigit(str[i]) && nbr <= 255)
 		nbr = nbr * 10 + (str[i] - '0');
-	if (str[i] && !ft_isdigit(str[i]))
+	if ((str[i] && !ft_isdigit(str[i])) || nbr > 255)
 		return (-1);
 	return (nbr);
 }

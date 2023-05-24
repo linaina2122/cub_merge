@@ -6,24 +6,24 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:50:07 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/24 19:36:46 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/24 20:51:54 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void text_initttt(t_my_struct *m)
+void text_initttt(t_my_struct *m,  float ray_angle)
 {
 	if(m->r->is_it_verticale)
 	{
-		if(check_left_right(m->r->rayangle))
+		if(check_left_right(ray_angle))
 			m->t.addr = mlx_get_data_addr(m->t.w_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
 		else
 			m->t.addr = mlx_get_data_addr(m->t.o_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
 	}
 	else
 	{
-		if(check_up_down(m->r->rayangle))
+		if(check_up_down(ray_angle))
 			m->t.addr = mlx_get_data_addr(m->t.n_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
 		else
 			m->t.addr = mlx_get_data_addr(m->t.s_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
@@ -37,14 +37,14 @@ void	rander(t_my_struct *m)
 
 	count = 0;
 	ray_angle = m->r->rayangle - (FOV_ANGLE / 2);
-	ray_angle = normalize_angle(ray_angle);	
+	ray_angle = normalize_angle(ray_angle);
 	while (count < NUM_RAYS)
 	{
-		text_initttt(m);
 		h_intercept(m, ray_angle);
 		v_intercept(m, ray_angle);
 		m->r->is_it_verticale = 0;
 		get_distance(m);
+		text_initttt(m, ray_angle);
 		renderwalls(m, ray_angle);
 		walls(m, count);
 		ray_angle += FOV_ANGLE / NUM_RAYS;

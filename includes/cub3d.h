@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:20:43 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/24 19:29:37 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/24 23:46:24 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define ERR_OPN_FIL "Cannot open given file\n"
 # define ERR_ISA_DIR "Argument is a directory\n"
 # define ERR_WRG_SCN "Incorrect scene configuration\n"
-# define ç "Failed converting the xpm file to image\n"
+# define ERR_FA_CONV "Failed converting the xpm file to image\n"
 
 //*GNL
 # define BUFFER_SIZE 1
@@ -57,8 +57,8 @@ typedef struct s_map_tools
 	int		flags;
 	char	*line;
 	char	**unchecked_map;
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 }	t_map_tools;
 
 typedef struct s_map
@@ -71,7 +71,7 @@ typedef struct s_map
 	double					s_dir;
 	unsigned int			*f;
 	unsigned int			*c;
-	size_t					dim[2];
+	int						dim[2];
 	size_t					pos[2];
 	t_map_tools				*tools;
 }	t_map;
@@ -87,8 +87,8 @@ void	check_each(char *line, int *flags, t_map *map);
 int		check_scene(char *file, t_map *map);
 
 //*map_loop_utils
-void	fill_rest(char *line, size_t max, int *dupe, char *uncheck);
-int		within_walls(char **map, size_t i, size_t j);
+void	fill_rest(char *line, int max, int *dupe, char *uncheck);
+int		within_walls(char **map, int i, int j);
 int		check_ends(char *line);
 
 //*features_utils
@@ -97,7 +97,7 @@ double	player_orientation(char player_start);
 //*check_utils
 int		check_extension(char *feature, char *ext);
 int		check_file(char *file);
-int		empty_line(char *line, size_t *dimh, size_t *dimw);
+int		empty_line(char *line, int *dimh, int *dimw);
 int		check_nums(char **feature);
 char	**check_end_spaces(char *line, int *flags);
 
@@ -109,7 +109,8 @@ int		len_darr(char **darr);
 char	*get_next_line(int fd);
 
 //*******************************************************
-//TODO:EVERYTHING ELSE
+//*errors
+void	err_arg(char *custom_err_msg);
 
 //*******************************************************
 //*2D MAP
@@ -124,7 +125,6 @@ typedef struct	s_data {
 typedef struct s_text{
 	void	*n_img;
 	void	*img;
-
 	void	*w_img;
 	void	*o_img;
 	void	*s_img;
@@ -165,10 +165,6 @@ typedef struct s_my_struct{
 	int		map_height;
 	char 	**map;
 	void 	*mlx_ptr;
-	int up;
-	int down;
-	int right;
-	int left;
 	void 	*win_ptr;
 	double 	player_x;
 	double 	player_y;
@@ -177,6 +173,8 @@ typedef struct s_my_struct{
 	double rot_angle;
 	double var;
 	int move[3];
+	unsigned int ceil_col;
+	unsigned int floor_col;
 	t_data	imge;
 	t_text	t;
 	t_ray *r;
@@ -230,7 +228,7 @@ int	exiting(int keycode, t_my_struct *m);
 int	update(t_my_struct *m);
 void text_init(t_my_struct *m, t_map *t);
 //  void textures_init(t_my_struct *m);
- void text_initttt(t_my_struct *m);
+ void text_initttt(t_my_struct *m, float ray_angle);
 
 
 

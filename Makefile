@@ -6,7 +6,7 @@
 #    By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:58:29 by bkamal            #+#    #+#              #
-#    Updated: 2023/05/23 23:17:04 by hcharef          ###   ########.fr        #
+#    Updated: 2023/05/24 22:54:18 by hcharef          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ fclean:	clean
 
 re:		fclean all
 
-ARG		 = ./maps/mapsimple.cub
+ARG		 = ./maps/map1.cub
 run: re
 	./cub3D $(ARG)
 
