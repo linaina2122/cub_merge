@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:50:07 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/24 20:51:54 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 18:24:25 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void text_initttt(t_my_struct *m,  float ray_angle)
 	if(m->r->is_it_verticale)
 	{
 		if(check_left_right(ray_angle))
-			m->t.addr = mlx_get_data_addr(m->t.w_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
+			m->t.addr = (unsigned int *)mlx_get_data_addr(m->t.w_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
 		else
-			m->t.addr = mlx_get_data_addr(m->t.o_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
+			m->t.addr = (unsigned int *)mlx_get_data_addr(m->t.o_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
 	}
 	else
 	{
 		if(check_up_down(ray_angle))
-			m->t.addr = mlx_get_data_addr(m->t.n_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
+			m->t.addr = (unsigned int *)mlx_get_data_addr(m->t.n_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
 		else
-			m->t.addr = mlx_get_data_addr(m->t.s_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
+			m->t.addr = (unsigned int *)mlx_get_data_addr(m->t.s_img, &m->t.bpp, &m->t.line_length, &m->t.endian);
 	}
 }
 
@@ -40,6 +40,7 @@ void	rander(t_my_struct *m)
 	ray_angle = normalize_angle(ray_angle);
 	while (count < NUM_RAYS)
 	{
+		
 		h_intercept(m, ray_angle);
 		v_intercept(m, ray_angle);
 		m->r->is_it_verticale = 0;
@@ -51,38 +52,45 @@ void	rander(t_my_struct *m)
 		ray_angle = normalize_angle(ray_angle);
 		count++;
 	}
+
 }
 
-unsigned int	ft_get_pixel(t_text m, int x, int y)
+unsigned int	ft_get_pixel(t_text *m, int x, int y)
 {
-	int		offset;
-
 	if (x < 0 || x >= 64 || y < 0 || y >= 64)
 		return 0;
-	offset = (y * m.line_length) + (x * m.bpp/8);
-	unsigned int a = *((unsigned int *)(m.addr + offset));
-	return(a);
+	
+	return(m->addr[SCALE * y + x]);
 }
 
 
 
 void	walls(t_my_struct *m, int count)
 {
-	float	top_of_wall;
-	float end_of_wall;
-	int x;
-	int y = 0;
-	top_of_wall = (HEIGHT / 2) - (m->r->wallstrip / 2);
-	end_of_wall = (HEIGHT / 2) + (m->r->wallstrip / 2);
-	if(m->r->is_it_verticale == 1)
+	int	top_of_wall;
+	int	end_of_wall;
+	int		x;
+	int		y;
+	int index;
+	int distfromtop;
+	y = 0;
+	top_of_wall = (HEIGHT / 2) - (m->r->wallstripeheight / 2);
+	index = top_of_wall;
+	if(top_of_wall < 0)
+		top_of_wall = 0; 
+	end_of_wall = (HEIGHT / 2) + (m->r->wallstripeheight / 2);
+	if(end_of_wall > HEIGHT)
+		end_of_wall = HEIGHT;
+	if(m->r->is_it_verticale)
 		x = (int)m->r->vwally % SCALE;
-	else 
-		x = (int)m->r->howallx % SCALE;
-	while (top_of_wall < end_of_wall)
+	else
+		x = (int)m->r->howallx % SCALE;	
+	while (index < end_of_wall)
 	{
-		y = (top_of_wall + (m->r->wallstrip / 2) - (HEIGHT / 2)) *  (SCALE / m->r->wallstrip);
-		ft_put_pixel(m, count, top_of_wall, ft_get_pixel(m->t, x, y));
-		top_of_wall++;
+		distfromtop = index + (m->r->wallstripeheight/ 2) - (HEIGHT / 2);
+		y = distfromtop * ((double)SCALE / m->r->wallstripeheight);
+		ft_put_pixel(m, count, index,ft_get_pixel(&m->t, x, y));
+		index++;
 	}
 }
 
@@ -94,5 +102,6 @@ void	renderwalls(t_my_struct *m, double ray_angle)
 	correctwalldist = (float)(m->r->final_distance) * cos(ray_angle\
 			- m->rot_angle);
 	disprojectionplane = (WIDTH / 2) / tan(FOV_ANGLE / 2);
-	m->r->wallstrip = 0.3 * ((SCALE / correctwalldist) * disprojectionplane);
+	m->r->wallstrip = 0.3 *  ((SCALE / correctwalldist) * disprojectionplane);
+	m->r->wallstripeheight = m->r->wallstrip;
 }

@@ -6,42 +6,42 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:51:00 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/24 23:54:36 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 18:27:27 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_get_height(t_my_struct *m)
-{
-	int i;
+// int	ft_get_height(t_my_struct *m)
+// {
+// 	int i;
 
-	 i = 0;
-	while(m->map[i])
-		i++;
-	return (i);
-}
-int	ft_get_width(t_my_struct *m)
-{
-	int i;
+// 	 i = 0;
+// 	while(m->map[i])
+// 		i++;
+// 	return (i);
+// }
+// int	ft_get_width(t_my_struct *m)
+// {
+// 	int i;
 
-	i = 1;
-	int j = 0;
-	while(m->map[i])
-	{
-		if(m->map[i] && m->map[i - 1] && ft_strlen(m->map[i]) >= ft_strlen(m->map[i - 1]))
-			j = ft_strlen(m->map[i]);
-		i++;
-	}
-	return (j);
-}
+// 	i = 1;
+// 	int j = 0;
+// 	while(m->map[i])
+// 	{
+// 		if(m->map[i] && m->map[i - 1] && ft_strlen(m->map[i]) >= ft_strlen(m->map[i - 1]))
+// 			j = ft_strlen(m->map[i]);
+// 		i++;
+// 	}
+// 	return (j);
+// }
 
 
-void get_map_width_and_height(t_my_struct *m)
-{
-	m->map_width = ft_get_width(m);
-	m->map_height = ft_get_height(m);
-}
+// void get_map_width_and_height(t_my_struct *m)
+// {
+// 	m->map_width = ft_get_width(m);
+// 	m->map_height = ft_get_height(m);
+// }
 
 void text_init(t_my_struct *m, t_map *t)
 {
@@ -63,8 +63,8 @@ void	window(t_my_struct *m, t_map *map)
 	// (void)map;
 	// get_map_width_and_height(m);
 	//!
-	m->map_width = map->dim[1] - 1;
-	m->map_height = map->dim[0];
+	// m->map_width = map->dim[1] - 1;
+	// m->map_height = map->dim[0];
 	// printf("widht=%d - height=%d\n", m->map_width, m->map_height);
 	// exit(1);
 	//!
@@ -76,8 +76,6 @@ void	window(t_my_struct *m, t_map *map)
 	mlx_hook(m->win_ptr, ON_KEYDOWN, 0, mouvements_press, m);
 	mlx_hook(m->win_ptr, ON_KEYUP, 0, mouvements_release, m);
 	mlx_hook(m->win_ptr, ON_DESTROY, 0, exiting, m);
-	// mlx_destroy_image(m->mlx_ptr, m->imge.img);
-	mlx_clear_window(m->mlx_ptr, m->win_ptr);
 	mlx_loop_hook(m->mlx_ptr, loop_func, m);
 	mlx_loop(m->mlx_ptr);
 }
@@ -90,6 +88,7 @@ int	loop_func(t_my_struct *m)
 	draw(m);
 	rander(m);
 	update(m);
+	mlx_clear_window(m->mlx_ptr, m->win_ptr);
 	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->imge.img, 0, 0);
 	return (0);
 }

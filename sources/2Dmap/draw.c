@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 01:15:00 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/24 23:10:31 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:45:35 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	ft_put_pixel(t_my_struct *data, int x, int y, int color)
 
 void	draw_square(t_my_struct *m, int x, int y)
 {
-	int	i;
-	int	j;
+	double	i;
+	double	j;
 
 	i = 0;
 	while (i < SCALE)
@@ -53,8 +53,8 @@ void	draw_square(t_my_struct *m, int x, int y)
 
 void	draw_back(t_my_struct *m, int x, int y)
 {
-	int	i;
-	int	j;
+	double	i;
+	double	j;
 
 	i = 0;
 	while (i < SCALE)
@@ -69,6 +69,46 @@ void	draw_back(t_my_struct *m, int x, int y)
 		ft_put_pixel(m, x, y + i, 0x000000);
 		i++;
 	}
+}
+
+
+
+
+void line_draw(t_my_struct *m)
+{
+	int j;
+	int i;
+
+	i = 0;
+	j = 0;
+	while(i < 30 && j < 30)
+	{
+		ft_put_pixel(m, (m->player_x * 64) + (i * cos(m->rot_angle)), (m->player_y * 64) + (j * sin(m->rot_angle)), 0x00FF0000);
+		j++;
+		i++;
+	}
+}
+
+void player(t_my_struct *m, double x, double y)
+{
+	double i;
+	double j;
+	double count;
+	double count2;
+	count = x * SCALE;
+	count2 = y * SCALE; 
+	i = -5; 
+	while(i < 5 )
+	{ 
+		j = -5;
+		while(j < 5)
+		{
+			ft_put_pixel(m, count + j, count2 + i, 0x00FF0000);
+			j++;
+		}
+		i++;
+	}
+	line_draw(m);
 }
 
 void iterater(t_my_struct *m)
@@ -93,10 +133,27 @@ void iterater(t_my_struct *m)
 	player(m, m->player_x, m->player_y);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void	draw(t_my_struct *m)
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 	
 	x = 0;
 	while (x < HEIGHT / 2)

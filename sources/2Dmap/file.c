@@ -6,32 +6,11 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:41:24 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/24 23:50:16 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:47:18 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void player(t_my_struct *m, double x, double y)
-{
-	int i;
-	int j;
-	double count;
-	double count2;
-	count = x * SCALE;
-	count2 = y * SCALE; 
-	i = -5; 
-	while(i < 5 )
-	{ 
-		j = -5;
-		while(j < 5)
-		{
-			ft_put_pixel(m, count + j, count2 + i, 0x00FF0000);
-			j++;
-		}
-		i++;
-	}
-}
 
 int mouvements_press(int keycode, t_my_struct *m)
 {

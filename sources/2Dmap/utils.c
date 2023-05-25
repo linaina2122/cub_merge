@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:05:37 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/24 20:46:39 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 12:27:49 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,12 @@ int	find_wall(double x, double y, t_my_struct *m)
 
 double	distance_of_two_points(t_my_struct *m, double d1, double d2)
 {
-	double	c;
+	double	x;
+	double	y;
+	
+	x = m->player_x * SCALE;
+	y = m->player_y * SCALE;
+	double angle = m->rot_angle;
 
-	c = (pow((d1 - (m->player_x * SCALE)), 2) + pow((d2 - (m->player_y * SCALE)),
-				2));
-	return (sqrt(c));
+	return ((d1 - x) * cos(angle) + (d2 - y) * sin(angle));
 }

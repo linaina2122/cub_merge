@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 00:28:37 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/24 23:51:38 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 12:27:14 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,15 @@ void	game_main(t_map *map)
 	s->map = map->layout;
 	s->r = malloc(sizeof(t_ray));
 	s->rot_angle = map->s_dir;
+	s->flag = 0;
 	s->move[0] = 0;
 	s->move[1] = 0;
 	s->move[2] = 0;
 	player_init(s);
 	s->ceil_col = *map->c;
 	s->floor_col = *map->f;
-	printf("widht=%d - height=%d\n", map->dim[1], map->dim[0]);
+	s->map_width = map->dim[1] - 1;
+	s->map_height = map->dim[0];
 	window(s, map);
 }
 
@@ -96,6 +98,5 @@ int	main(int ac, char **av)
 	init_parse(map);
 	error_checks(ac, av, map);
 	game_main(map);
-	// free_map(map);
 	return (0);
 }

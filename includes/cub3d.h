@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:20:43 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/24 23:46:24 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 14:53:07 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct s_text{
 	void	*w_img;
 	void	*o_img;
 	void	*s_img;
-	char	*addr;
+	unsigned int	*addr;
 	int		bpp;
 	int		line_length;
 	int		endian;
@@ -146,9 +146,7 @@ typedef struct s_ray {
 	double next_h_intery;
 	double next_v_interx;
 	double next_v_intery;
-	double wallhitx;
-	double wallhity;
-	float wallstrip;
+	double wallstrip;
 	double howallx;
 	double howally;
 	double vwallx;
@@ -157,6 +155,7 @@ typedef struct s_ray {
 	int vflag;
 	double final_distance;
 	short		is_it_verticale;
+	double wallstripeheight;
 }t_ray;
 
 typedef struct s_my_struct{
@@ -175,6 +174,7 @@ typedef struct s_my_struct{
 	int move[3];
 	unsigned int ceil_col;
 	unsigned int floor_col;
+	int flag;
 	t_data	imge;
 	t_text	t;
 	t_ray *r;
