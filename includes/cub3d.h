@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 18:20:43 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/25 14:53:07 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 19:52:20 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@
 # define SCALE 64
 # define WIDTH 1920
 # define HEIGHT 1080
-# define SPEED  2 * (M_PI_2 / 180)
 //RAY
 
-#define FOV_ANGLE 60 * (M_PI_2 / 180)
-#define NUM_RAYS WIDTH 
+# define NUM_RAYS WIDTH 
 //*******************************************************
 //*PARSING PART
 typedef struct s_map_tools
@@ -57,8 +55,8 @@ typedef struct s_map_tools
 	int		flags;
 	char	*line;
 	char	**unchecked_map;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 }	t_map_tools;
 
 typedef struct s_map
@@ -114,7 +112,7 @@ void	err_arg(char *custom_err_msg);
 
 //*******************************************************
 //*2D MAP
-typedef struct	s_data {
+typedef struct s_data {
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -123,61 +121,66 @@ typedef struct	s_data {
 }	t_data;
 
 typedef struct s_text{
-	void	*n_img;
-	void	*img;
-	void	*w_img;
-	void	*o_img;
-	void	*s_img;
+	void			*n_img;
+	void			*img;
+	void			*w_img;
+	void			*o_img;
+	void			*s_img;
 	unsigned int	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
+	int				bpp;
+	int				line_length;
+	int				endian;
 }t_text;
 
 typedef struct s_ray {
-	double xstep;
-	double ystep;
-	double xfirstintersecpointhor;
-	double yfirstintersecpointhor;
-	double xfirstintersecpointver;
-	double yfirstintersecpointver;
-	double rayangle;
-	double next_h_interx;
-	double next_h_intery;
-	double next_v_interx;
-	double next_v_intery;
-	double wallstrip;
-	double howallx;
-	double howally;
-	double vwallx;
-	double vwally;
-	int hflag;
-	int vflag;
-	double final_distance;
-	short		is_it_verticale;
-	double wallstripeheight;
+	double	xstep;
+	double	ystep;
+	double	xfirstintersecpointhor;
+	double	yfirstintersecpointhor;
+	double	xfirstintersecpointver;
+	double	yfirstintersecpointver;
+	double	rayangle;
+	double	next_h_interx;
+	double	next_h_intery;
+	double	next_v_interx;
+	double	next_v_intery;
+	double	wallstrip;
+	double	howallx;
+	double	howally;
+	double	vwallx;
+	double	vwally;
+	int		hflag;
+	int		vflag;
+	double	final_distance;
+	short	is_it_verticale;
+	double	wallstripeheight;
+	int		top_of_wall;
+	int		end_of_wall;
+	int		index;
 }t_ray;
 
 typedef struct s_my_struct{
-	int		keycode;
-	int		map_width;
-	int		map_height;
-	char 	**map;
-	void 	*mlx_ptr;
-	void 	*win_ptr;
-	double 	player_x;
-	double 	player_y;
-	double rot_player_x;
-	double rot_player_y;
-	double rot_angle;
-	double var;
-	int move[3];
-	unsigned int ceil_col;
-	unsigned int floor_col;
-	int flag;
-	t_data	imge;
-	t_text	t;
-	t_ray *r;
+	int				keycode;
+	int				map_width;
+	int				map_height;
+	char			**map;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	double			player_x;
+	double			player_y;
+	double			rot_player_x;
+	double			rot_player_y;
+	double			rot_angle;
+	double			var;
+	int				move[3];
+	unsigned int	ceil_col;
+	unsigned int	floor_col;
+	double			speed;
+	double			fov_angle;
+	int				flag;
+	t_data			imge;
+	t_text			t;
+	t_ray			*r;
 }t_my_struct;
 
 enum {
@@ -192,51 +195,36 @@ enum {
 
 int		loop_func(t_my_struct *m);
 void	player_init(t_my_struct *m);
-void 	draw(t_my_struct *m);
-void	draw_square(t_my_struct *m, int count, int count2);
-void 	player(t_my_struct *m, double x, double y);
-int 	mouvements_press(int keycode, t_my_struct *m);
-int 	mouvements_release(int keycode, t_my_struct *m);
-void 	draw_back(t_my_struct *m , int x, int y);
-void 	window(t_my_struct *m, t_map *map);
+void	draw(t_my_struct *m);
+int		mouvements_press(int keycode, t_my_struct *m);
+int		mouvements_release(int keycode, t_my_struct *m);
+void	window(t_my_struct *m, t_map *map);
 void	ft_put_pixel(t_my_struct *data, int x, int y, int color);
 void	data_struct_init(t_my_struct *data);
-void 	line_draw(t_my_struct *m);
-
-int 	move_up(t_my_struct *m);
-int 	move_down(t_my_struct *m);
-int 	right_move(t_my_struct *m);
-int 	left_move(t_my_struct *m);
-int 	find_wall(double x, double y, t_my_struct *m);
-void 	h_intercept(t_my_struct *m, double angle);
-t_ray 	*struct_init(t_my_struct *m);
-void 	ray_draw(t_my_struct *m, double angle);
-void 	ray_angles(t_my_struct *m);
-double 	normalize_angle(double angl);
-void  	v_intercept(t_my_struct *m, double angle);
+int		move_up(t_my_struct *m);
+int		move_down(t_my_struct *m);
+int		right_move(t_my_struct *m);
+int		left_move(t_my_struct *m);
+int		find_wall(double x, double y, t_my_struct *m);
 void	h_intercept(t_my_struct *m, double angle);
-void 	rander(t_my_struct *m);
-void 	find_h_wall(t_my_struct *m);
-void 	find_v_wall(t_my_struct *m);
-void 	renderwalls(t_my_struct *m, double ray_angle);
-void 	walls(t_my_struct *m, int count);
+t_ray	*struct_init(t_my_struct *m);
+void	ray_angles(t_my_struct *m);
+double	normalize_angle(double angl);
+void	v_intercept(t_my_struct *m, double angle);
+void	h_intercept(t_my_struct *m, double angle);
+void	rander(t_my_struct *m);
+void	find_h_wall(t_my_struct *m);
+void	find_v_wall(t_my_struct *m);
+void	renderwalls(t_my_struct *m, double ray_angle);
+void	walls(t_my_struct *m, int count);
 void	get_distance(t_my_struct *m);
 int		check_left_right(double angle);
 int		check_up_down(double angle);
 double	distance_of_two_points(t_my_struct *m, double d1, double d2);
-int	exiting(int keycode, t_my_struct *m);
-int	update(t_my_struct *m);
-void text_init(t_my_struct *m, t_map *t);
-//  void textures_init(t_my_struct *m);
- void text_initttt(t_my_struct *m, float ray_angle);
-
-
-
-
-
-
-void iterater(t_my_struct *m);//to delete
+int		exiting(int keycode, t_my_struct *m);
+int		update(t_my_struct *m);
+void	text_init(t_my_struct *m, t_map *t);
+ void	text_initttt(t_my_struct *m, float ray_angle);
 
 //*******************************************************
-
 #endif

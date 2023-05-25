@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 00:28:37 by bkamal            #+#    #+#             */
-/*   Updated: 2023/05/25 12:27:14 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 20:01:29 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	err_arg(char *custom_err_msg)
 	ft_putstr_fd(custom_err_msg, 2);
 	exit(0);
 }
-//! Annoying makefile 
 
 void	free_map(t_map *map)
 {
@@ -40,9 +39,6 @@ void	free_map(t_map *map)
 	free(map);
 }
 
-//* 63 is the decimal of 0011 1111 in binary,
-//* 	each bit will correspond to a flag
-//* left->right NO->SO->WE->EA->F->C
 void	error_checks(int ac, char **av, t_map *map)
 {
 	if (ac != 2)
@@ -84,6 +80,8 @@ void	game_main(t_map *map)
 	s->move[2] = 0;
 	player_init(s);
 	s->ceil_col = *map->c;
+	s->speed = 2 * (M_PI_2 / 180);
+	s->fov_angle = 60 * (M_PI_2 / 180);
 	s->floor_col = *map->f;
 	s->map_width = map->dim[1] - 1;
 	s->map_height = map->dim[0];

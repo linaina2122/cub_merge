@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 21:58:18 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/25 18:26:48 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 19:53:47 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	update(t_my_struct *m)
 	m->rot_angle = normalize_angle(m->rot_angle);
 	move(m);
 	if (m->move[2] == 1)
-		m->rot_angle += 1.5 * SPEED;
+		m->rot_angle += 1.5 * m->speed;
 	if (m->move[2] == 2)
-		m->rot_angle -= 1.5 * SPEED;
+		m->rot_angle -= 1.5 * m->speed;
 	return (0);
 }
 
@@ -68,7 +68,8 @@ void	player_init(t_my_struct *m)
 		line = m->map[i];
 		while (line[j])
 		{
-			if (line[j] == 'N' || line[j] == 'S' || line[j] == 'E' || line[j] == 'W')
+			if (line[j] == 'N' || line[j] == 'S' || line[j] == 'E' \
+			|| line[j] == 'W')
 			{
 				m->player_x = (j) + 0.5;
 				m->player_y = (i) + 0.5;

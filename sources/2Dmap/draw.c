@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 01:15:00 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/25 16:45:35 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 19:34:49 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,130 +31,11 @@ void	ft_put_pixel(t_my_struct *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_square(t_my_struct *m, int x, int y)
-{
-	double	i;
-	double	j;
-
-	i = 0;
-	while (i < SCALE)
-	{
-		j = 0;
-		while (j < SCALE)
-		{
-			ft_put_pixel(m, x + j, y, 0xFFFFFF);
-			ft_put_pixel(m, x + j, y + i, 56545);
-			j++;
-		}
-		ft_put_pixel(m, x, y + i, 5654565);
-		i++;
-	}
-}
-
-void	draw_back(t_my_struct *m, int x, int y)
-{
-	double	i;
-	double	j;
-
-	i = 0;
-	while (i < SCALE)
-	{
-		j = 0;
-		while (j < SCALE)
-		{
-			ft_put_pixel(m, x + j, y, 564889);
-			ft_put_pixel(m, x + j, y + i, 7898);
-			j++;
-		}
-		ft_put_pixel(m, x, y + i, 0x000000);
-		i++;
-	}
-}
-
-
-
-
-void line_draw(t_my_struct *m)
-{
-	int j;
-	int i;
-
-	i = 0;
-	j = 0;
-	while(i < 30 && j < 30)
-	{
-		ft_put_pixel(m, (m->player_x * 64) + (i * cos(m->rot_angle)), (m->player_y * 64) + (j * sin(m->rot_angle)), 0x00FF0000);
-		j++;
-		i++;
-	}
-}
-
-void player(t_my_struct *m, double x, double y)
-{
-	double i;
-	double j;
-	double count;
-	double count2;
-	count = x * SCALE;
-	count2 = y * SCALE; 
-	i = -5; 
-	while(i < 5 )
-	{ 
-		j = -5;
-		while(j < 5)
-		{
-			ft_put_pixel(m, count + j, count2 + i, 0x00FF0000);
-			j++;
-		}
-		i++;
-	}
-	line_draw(m);
-}
-
-void iterater(t_my_struct *m)
-{
-	int count;
-	int count2;
-
-	count = 0;
-	while(count < m->map_height * SCALE)
-	{
-		count2 = 0;
-		while(count2 < m->map_width * SCALE)
-		{
-			if(m->map[count / SCALE][count2 / SCALE] == '1')
-				draw_square(m, count2, count);
-			else
-				draw_back(m, count2, count);
-			count2 += SCALE;
-		}
-		count += SCALE;
-	}
-	player(m, m->player_x, m->player_y);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void	draw(t_my_struct *m)
 {
 	double	x;
 	double	y;
-	
+
 	x = 0;
 	while (x < HEIGHT / 2)
 	{

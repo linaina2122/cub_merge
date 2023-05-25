@@ -6,47 +6,16 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 23:51:00 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/25 18:27:27 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 19:36:59 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// int	ft_get_height(t_my_struct *m)
-// {
-// 	int i;
-
-// 	 i = 0;
-// 	while(m->map[i])
-// 		i++;
-// 	return (i);
-// }
-// int	ft_get_width(t_my_struct *m)
-// {
-// 	int i;
-
-// 	i = 1;
-// 	int j = 0;
-// 	while(m->map[i])
-// 	{
-// 		if(m->map[i] && m->map[i - 1] && ft_strlen(m->map[i]) >= ft_strlen(m->map[i - 1]))
-// 			j = ft_strlen(m->map[i]);
-// 		i++;
-// 	}
-// 	return (j);
-// }
-
-
-// void get_map_width_and_height(t_my_struct *m)
-// {
-// 	m->map_width = ft_get_width(m);
-// 	m->map_height = ft_get_height(m);
-// }
-
-void text_init(t_my_struct *m, t_map *t)
+void	text_init(t_my_struct *m, t_map *t)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	m->t.n_img = mlx_xpm_file_to_image(m->mlx_ptr, t->no, &i, &j);
 	m->t.w_img = mlx_xpm_file_to_image(m->mlx_ptr, t->we, &i, &j);
@@ -56,18 +25,8 @@ void text_init(t_my_struct *m, t_map *t)
 		err_arg(ERR_FA_CONV);
 }
 
-
-
 void	window(t_my_struct *m, t_map *map)
 {
-	// (void)map;
-	// get_map_width_and_height(m);
-	//!
-	// m->map_width = map->dim[1] - 1;
-	// m->map_height = map->dim[0];
-	// printf("widht=%d - height=%d\n", m->map_width, m->map_height);
-	// exit(1);
-	//!
 	m->mlx_ptr = mlx_init();
 	m->win_ptr = mlx_new_window(m->mlx_ptr, WIDTH, HEIGHT, "cub3d");
 	data_struct_init(m);
@@ -80,11 +39,9 @@ void	window(t_my_struct *m, t_map *map)
 	mlx_loop(m->mlx_ptr);
 }
 
-
 int	loop_func(t_my_struct *m)
 {
 	m->r->rayangle = normalize_angle(m->rot_angle);
-	// iterater(m);
 	draw(m);
 	rander(m);
 	update(m);

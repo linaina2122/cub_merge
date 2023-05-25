@@ -6,7 +6,7 @@
 /*   By: hcharef <hcharef@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:05:37 by hcharef           #+#    #+#             */
-/*   Updated: 2023/05/25 12:27:49 by hcharef          ###   ########.fr       */
+/*   Updated: 2023/05/25 19:38:46 by hcharef          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ double	distance_of_two_points(t_my_struct *m, double d1, double d2)
 {
 	double	x;
 	double	y;
-	
+	double	angle;
+
 	x = m->player_x * SCALE;
 	y = m->player_y * SCALE;
-	double angle = m->rot_angle;
-
+	angle = m->rot_angle;
 	return ((d1 - x) * cos(angle) + (d2 - y) * sin(angle));
 }
